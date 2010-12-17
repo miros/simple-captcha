@@ -44,13 +44,13 @@ module SimpleCaptcha #:nodoc
       end
     end
 
-    class Tempfile < ::Tempfile
-      # Replaces Tempfile's +make_tmpname+ with one that honors file extensions.
-      def make_tmpname(basename, n = 0)
-        extension = File.extname(basename)
-        sprintf("%s,%d,%d%s", File.basename(basename, extension), $$, n, extension)
-      end
-    end
+    #class Tempfile < ::Tempfile
+    #  # Replaces Tempfile's +make_tmpname+ with one that honors file extensions.
+    #  def make_tmpname(basename, n = 0)
+    #    extension = File.extname(basename)
+    #    sprintf("%s,%d,%d%s", File.basename(basename, extension), $$, n, extension)
+    #  end
+    #end
 
     private
 
@@ -65,7 +65,8 @@ module SimpleCaptcha #:nodoc
         params << "-pointsize 22"
         params << "-implode 0.2"
         
-        dst = Tempfile.new('simple_captcha.jpg')
+        #dst = Tempfile.new('simple_captcha.jpg')
+        dst = Tempfile.new(['simple_captcha', '.jpg'])
         dst.binmode
         
         params << "label:#{text} '#{File.expand_path(dst.path)}'"
